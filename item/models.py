@@ -64,3 +64,35 @@ class Product(models.Model):
     region = models.CharField(max_length=35)
     HarvestSeason = models.CharField(max_length=25, choices=SEASON_CHOICES)
     ProductYear = models.DateTimeField(auto_now=True)
+
+class Trade(models.Model):
+    product = models.ForeignKey('Product',on_delete=models.CASCADE)
+    store = models.ForeignKey('Store',on_delete=models.CASCADE)
+    productioncountry = models.TextField()
+    price = models.IntegerField()
+    weight= models.IntegerField()
+    term = models.DateTimeField()
+    delivery = models.TextField()
+    deliverycost = models.IntegerField()
+
+class Trade(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    #store=models.ForeignKey('Store',on_delete=models.CASCADE)
+    productioncountry = models.TextField()
+    price=models.IntegerField()
+    weight=models.IntegerField()
+    term=models.DateTimeField()
+    delivery=models.TextField()
+    deliverycost=models.IntegerField()
+    class Meta:
+        verbose_name_plural = 'Trade'
+    def __str__(self):
+        return self.product
+class Package(models.Model):
+    image=models.ImageField()
+    weight = models.IntegerField()
+    volume=models.IntegerField()
+    class Meta:
+        verbose_name_plural ='Package'
+    def __str__(self):
+        return self.image
