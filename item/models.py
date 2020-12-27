@@ -31,7 +31,7 @@ class Store(models.Model):
     def __str__(self):
         return self.title
 
-class PostCategory(models.Model):
+class ProductCategory(models.Model):
     title = models.CharField(max_length=25)
 
     def __str__(self):
@@ -60,38 +60,29 @@ class Post(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=50)
-    category = models.ForeignKey(PostCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     region = models.CharField(max_length=35)
     HarvestSeason = models.CharField(max_length=25, choices=SEASON_CHOICES)
     ProductYear = models.DateTimeField(auto_now=True)
 
+
 class Trade(models.Model):
-    product = models.ForeignKey('Product',on_delete=models.CASCADE)
-    store = models.ForeignKey('Store',on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    #store=models.ForeignKey('Store',on_delete=models.CASCADE)
     productioncountry = models.TextField()
     price = models.IntegerField()
-    weight= models.IntegerField()
+    weight = models.IntegerField()
     term = models.DateTimeField()
     delivery = models.TextField()
     deliverycost = models.IntegerField()
-
-class Trade(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    #store=models.ForeignKey('Store',on_delete=models.CASCADE)
-    productioncountry = models.TextField()
-    price=models.IntegerField()
-    weight=models.IntegerField()
-    term=models.DateTimeField()
-    delivery=models.TextField()
-    deliverycost=models.IntegerField()
     class Meta:
         verbose_name_plural = 'Trade'
     def __str__(self):
         return self.product
 class Package(models.Model):
-    image=models.ImageField()
+    image = models.ImageField()
     weight = models.IntegerField()
-    volume=models.IntegerField()
+    volume = models.IntegerField()
     class Meta:
         verbose_name_plural ='Package'
     def __str__(self):
